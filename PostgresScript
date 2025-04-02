@@ -1,0 +1,56 @@
+CREATE TABLE trees (
+    tree_id SERIAL PRIMARY KEY,          -- Уникальный идентификатор дерева
+    block_id INTEGER,                    -- Идентификатор блока, к которому относится дерево
+    created_at TIMESTAMP,                -- Дата и время создания записи
+    tree_dbh NUMERIC(5, 2),              -- Диаметр ствола дерева на высоте 1,4 метра (в дюймах)
+    stump_diam NUMERIC(5, 2),            -- Диаметр пня (в дюймах)
+    curb_loc VARCHAR(50),                 -- Местоположение бордюра
+    status VARCHAR(50),                   -- Статус дерева (например, живое, мертвое, удаленное)
+    health VARCHAR(50),                   -- Состояние здоровья дерева
+    spc_latin VARCHAR(100),               -- Латинское название вида дерева
+    spc_common VARCHAR(100),              -- Общее название вида дерева
+    steward VARCHAR(100),                 -- Ответственное лицо за дерево
+    guards VARCHAR(50),                   -- Наличие защитных конструкций
+    sidewalk VARCHAR(50),                 -- Наличие тротуара рядом с деревом
+    user_type VARCHAR(50),                -- Тип пользователя, который создал запись
+    problems VARCHAR(255),                -- Проблемы, связанные с деревом
+    root_stone BOOLEAN,                   -- Наличие камней в корневой зоне
+    root_grate BOOLEAN,                   -- Наличие решеток в корневой зоне
+    root_other VARCHAR(255),              -- Другие особенности корней
+    trunk_wire BOOLEAN,                   -- Наличие проволоки на стволе дерева
+    trnk_light BOOLEAN,                   -- Наличие освещения на стволе дерева
+    trnk_other VARCHAR(255),              -- Другие особенности ствола
+    brch_light BOOLEAN,                   -- Наличие освещения на ветвях
+    brch_shoe BOOLEAN,                    -- Наличие защитных конструкций на ветвях
+    brch_other VARCHAR(255),              -- Другие особенности ветвей
+    address VARCHAR(255),                 -- Адрес, где находится дерево
+    postcode VARCHAR(50),                 -- Почтовый индекс
+    zip_city VARCHAR(100),                -- Город по почтовому индексу
+    community_board VARCHAR(50),          -- Номер сообщества (community board)
+    borocode VARCHAR(50),                 -- Код района
+    borough VARCHAR(50),                  -- Название района
+    cncldist VARCHAR(50),                 -- Номер избирательного округа
+    st_assem VARCHAR(50),                 -- Номер округа Ассамблеи
+    st_senate VARCHAR(50),                -- Номер округа Сената
+    nta VARCHAR(50),                      -- Номер района (Neighborhood Tabulation Area)
+    nta_name VARCHAR(100),                -- Название района
+    boro_ct VARCHAR(50),                  -- Код района (Borough Community District)
+    state VARCHAR(50),                    -- Штат
+    latitude NUMERIC(9, 6),               -- Широта
+    longitude NUMERIC(9, 6),              -- Долгота
+    x_sp NUMERIC(10, 2),                  -- Координаты X (специфические для системы координат)
+    y_sp NUMERIC(10, 2),                  -- Координаты Y (специфические для системы координат)
+    council_district VARCHAR(50),         -- Номер совета района
+    census_tract VARCHAR(50),             -- Номер переписного участка
+    bin VARCHAR(50),                      -- Номер BIN (Building Identification Number)
+    bbl VARCHAR(50)                       -- Номер BBL (Borough, Block, Lot)
+);
+
+
+-- Создание индексов для оптимизации запросов
+CREATE INDEX idx_borough ON trees (borough);
+CREATE INDEX idx_postcode ON trees (postcode);
+CREATE INDEX idx_zip_city ON trees (zip_city);
+CREATE INDEX idx_community_board ON trees (community_board);
+CREATE INDEX idx_created_at ON trees (created_at);
+CREATE INDEX idx_latitude_longitude ON trees (latitude, longitude)
